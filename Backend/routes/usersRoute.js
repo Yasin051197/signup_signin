@@ -25,7 +25,7 @@ usersRoute.post("/signup",async(req,res)=>{
 
         else{
 
-            const user=new User({email,password:hash});
+            const user=new User({email,password:hash,login_attempts:0,lock:null});
 
             await user.save();
             res.send({msg:"user registered successfully"});
@@ -45,13 +45,14 @@ usersRoute.post("/login",async(req,res)=>{
 
     try{
         const user=await User.find({email:email});
+        
         if(user.length>0){
-            bcrypt.compare(password, user[0].password, function(err) {
-                if(err){
-                    res.send({msg:"Login Failed plz enter correct credintials"})
+            bcrypt.compare(password, user[0].password, function(err,result) {
+                if(result){
+                    res.send({msg:"Login Successful",email:user[0].email})
                 }
                 else{
-                    res.send({msg:"Login Successful",email:user[0].email})
+                    res.send({msg:"Login Failed plz enter correct credintials"})
                 }
             });
         }
