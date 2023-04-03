@@ -63,7 +63,7 @@ usersRoute.post("/login",async(req,res)=>{
             
                         const lt=new Date().getTime() + d;
             
-                        await User.findByIdAndUpdate(user[0]._id,{lock:new Date(lock)});   
+                        await User.findByIdAndUpdate(user[0]._id,{lock:new Date(lt)});   
                     }
                     res.send({msg:"Login Failed, plz enter correct credintials"});
                 }
