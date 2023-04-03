@@ -52,7 +52,7 @@ usersRoute.post("/login",async(req,res)=>{
                     res.send({msg:"Login Successful",email:user[0].email})
                 }
                 else{
-                    res.send({msg:"Login Failed plz enter correct credintials"})
+                    res.send({msg:"Login Failed, plz enter correct credintials"})
                 }
             });
         }
